@@ -1,5 +1,5 @@
 [build]
-  command = "cd client && npm install --include=dev && npm run build && cd ../server && npm install"
+  command = "cd client && npm install --include=dev && npm run build"
   publish = "client/dist"
   functions = "netlify/functions"
 
@@ -8,7 +8,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["server/**"]
+  external_node_modules = ["serverless-http", "express", "mongoose", "bcryptjs", "jsonwebtoken", "cors", "dotenv"]
 
 [[redirects]]
   from = "/api/*"
