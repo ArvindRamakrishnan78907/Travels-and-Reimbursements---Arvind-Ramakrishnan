@@ -5,8 +5,13 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -978,6 +983,17 @@ app.post('/api/actions/approve-trip', (req, res) => {
 app.post('/api/actions/reset-data', (req, res) => {
   currentStore = JSON.parse(JSON.stringify(initialData));
   res.json({ success: true, message: 'Reset data to defaults' });
+});
+
+// Serve frontend client build in production
+const clientDistPath = path.resolve(__dirname, '../client/dist');
+app.use(express.static(clientDistPath));
+
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ message: 'API route not found' });
+  }
+  res.sendFile(path.join(clientDistPath, 'index.html'));
 });
 
 app.listen(PORT, () => {
