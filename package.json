@@ -4,11 +4,8 @@
   "description": "Full-stack SmartSpend Travel & Reimbursement System (Zoho Expense Model)",
   "main": "server/server.js",
   "scripts": {
-    "install:all": "npm --prefix server install && npm --prefix client install",
-    "build:client": "npm --prefix client run build",
-    "build": "npm --prefix client install && npm --prefix client run build && npm --prefix server install",
-    "start": "node server/server.js",
-    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\""
+    "build": "cd client && npm install --include=dev && npm run build && cd ../server && npm install",
+    "start": "node server/server.js"
   },
   "keywords": [
     "zoho-expense",
@@ -19,4 +16,3 @@
   "author": "Arvind Ramakrishnan",
   "license": "MIT"
 }
-
