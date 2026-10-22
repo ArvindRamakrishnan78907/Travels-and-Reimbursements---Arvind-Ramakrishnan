@@ -54,3 +54,4 @@ npm start
 - `PORT` = `5050` (or system port assigned by hosting provider)
 - `MONGODB_URI` = `mongodb+srv://<user>:<password>@cluster.mongodb.net/smartspend`
 - `JWT_SECRET` = `your_super_secret_jwt_key`
+
