@@ -996,6 +996,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(clientDistPath, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend server running on http://localhost:${PORT}`);
-});
+if (process.env.NETLIFY !== 'true' && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  app.listen(PORT, () => {
+    console.log(`Backend server running on http://localhost:${PORT}`);
+  });
+}
+
+export { app };
+export default app;
