@@ -1,19 +1,6 @@
 [build]
-  command = "cd client && npm install && npx vite build"
   publish = "client/dist"
-  functions = "netlify/functions"
-
-[build.environment]
-  NODE_ENV = "development"
-
-[functions]
-  node_bundler = "esbuild"
-  external_node_modules = ["serverless-http", "express", "mongoose", "bcryptjs", "jsonwebtoken", "cors", "dotenv"]
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/api/:splat"
-  status = 200
+  command = "echo 'Static build ready'"
 
 [[redirects]]
   from = "/*"
