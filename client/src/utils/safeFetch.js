@@ -1,37 +1,53 @@
-// Centralized API client with automatic offline/standalone fallback
+// Embedded Reactive Data Engine for SmartSpend (Full Offline & Static Hosting Support)
 import { mockStore } from './mockDatabase.js';
 
 function getLocalStore() {
   const saved = localStorage.getItem('smartspend_local_data');
   if (saved) {
-    try { return JSON.parse(saved); } catch (e) {}
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed.reports && parsed.trips) {
+        return parsed;
+      }
+    } catch (e) {}
   }
+  // Initialize from clean mockStore
   localStorage.setItem('smartspend_local_data', JSON.stringify(mockStore));
   return JSON.parse(JSON.stringify(mockStore));
 }
 
 function saveLocalStore(data) {
   localStorage.setItem('smartspend_local_data', JSON.stringify(data));
+  // Dispatch custom storage event for instant UI syncing across views
+  window.dispatchEvent(new Event('smartspend:data-updated'));
 }
 
 export async function safeFetch(endpoint, options = {}) {
   const method = (options.method || 'GET').toUpperCase();
-  const body = options.body ? JSON.parse(options.body) : null;
-  const token = localStorage.getItem('smartspend_token');
-
-  // Try real backend API first if running locally with custom server
-  try {
-    const res = await fetch(endpoint, options);
-    const contentType = res.headers.get('content-type') || '';
-    if (res.ok && contentType.includes('application/json')) {
-      const data = await res.json();
-      return { ok: true, status: res.status, json: async () => data };
+  let body = null;
+  if (options.body) {
+    try {
+      body = typeof options.body === 'string' ? JSON.parse(options.body) : options.body;
+    } catch (e) {
+      body = options.body;
     }
-  } catch (netErr) {
-    // Network fallback
   }
 
-  // --- Embedded Client-Side Data Engine (Static & GitHub Pages) ---
+  // If running in development with an actual live Node.js backend on localhost
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    try {
+      const res = await window.fetch(endpoint, options);
+      const contentType = res.headers.get('content-type') || '';
+      if (res.ok && contentType.includes('application/json')) {
+        const data = await res.json();
+        return { ok: true, status: res.status, json: async () => data };
+      }
+    } catch (netErr) {
+      // Local server not running or network interrupted: fall through smoothly
+    }
+  }
+
+  // --- Embedded Client-Side Data Engine (for GitHub Pages / Production) ---
   const store = getLocalStore();
 
   // 1. Authentication
@@ -48,7 +64,7 @@ export async function safeFetch(endpoint, options = {}) {
     return {
       ok: true,
       status: 200,
-      json: async () => ({ success: true, token: 'mock-jwt-' + Date.now(), user, message: `Welcome back, ${user.name}!` })
+      json: async () => ({ success: true, token: 'jwt-' + Date.now(), user, message: `Welcome back, ${user.name}!` })
     };
   }
 
@@ -66,11 +82,11 @@ export async function safeFetch(endpoint, options = {}) {
     return {
       ok: true,
       status: 201,
-      json: async () => ({ success: true, token: 'mock-jwt-' + Date.now(), user: newUser, message: 'Account created successfully!' })
+      json: async () => ({ success: true, token: 'jwt-' + Date.now(), user: newUser, message: 'Account created successfully!' })
     };
   }
 
-  // 2. Dashboard
+  // 2. Dashboard Overview
   if (endpoint.startsWith('/api/dashboard/overview')) {
     return {
       ok: true,
@@ -85,25 +101,39 @@ export async function safeFetch(endpoint, options = {}) {
     };
   }
 
-  // 3. Trips
+  // 3. Trips Module (Approve & Update)
   if (endpoint.startsWith('/api/trips/pending')) {
     return { ok: true, status: 200, json: async () => store.pendingTrips };
   }
 
   if (endpoint.startsWith('/api/trips')) {
-    const parts = endpoint.split('/');
+    const parts = endpoint.split('?')[0].split('/');
     const tripId = parts[3];
 
-    // PUT: Update trip status (e.g. approve trip)
+    // PUT /api/trips/:id -> Approve or update trip status
     if (method === 'PUT' && tripId) {
       const trip = store.trips.find(t => t.id === tripId);
       if (trip) {
-        if (body.status) trip.status = body.status;
+        if (body && body.status) trip.status = body.status;
         saveLocalStore(store);
-        return { ok: true, status: 200, json: async () => ({ success: true, message: `Trip ${tripId} status updated to ${body.status}!`, trip }) };
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            success: true,
+            message: `Trip ${tripId} status updated to ${body.status}!`,
+            trip
+          })
+        };
       }
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ success: true, message: `Trip ${tripId} updated!` })
+      };
     }
 
+    // POST /api/trips -> Create new trip
     if (method === 'POST') {
       const newTrip = {
         id: 'TRP-' + Math.floor(100 + Math.random() * 900),
@@ -120,23 +150,24 @@ export async function safeFetch(endpoint, options = {}) {
       saveLocalStore(store);
       return { ok: true, status: 201, json: async () => ({ success: true, trip: newTrip }) };
     }
+
     return { ok: true, status: 200, json: async () => store.trips };
   }
 
-  // 4. Reports (Including Reimburse action)
+  // 4. Reports Module (Reimburse & File Claims)
   if (endpoint.startsWith('/api/reports/pending')) {
     return { ok: true, status: 200, json: async () => store.pendingReports };
   }
 
   if (endpoint.startsWith('/api/reports')) {
-    const parts = endpoint.split('/');
+    const parts = endpoint.split('?')[0].split('/');
     const reportId = parts[3];
 
-    // PUT: Update report status (e.g. mark as reimbursed or in-review)
+    // PUT /api/reports/:id -> Reimburse report
     if (method === 'PUT' && reportId) {
       const report = store.reports.find(r => r.id === reportId);
       if (report) {
-        if (body.status) report.status = body.status;
+        if (body && body.status) report.status = body.status;
         saveLocalStore(store);
         return {
           ok: true,
@@ -155,6 +186,7 @@ export async function safeFetch(endpoint, options = {}) {
       };
     }
 
+    // POST /api/reports -> Create claim
     if (method === 'POST') {
       const newReport = {
         id: 'EXP-' + Math.floor(1000 + Math.random() * 9000),
@@ -172,18 +204,19 @@ export async function safeFetch(endpoint, options = {}) {
       saveLocalStore(store);
       return { ok: true, status: 201, json: async () => ({ success: true, report: newReport }) };
     }
+
     return { ok: true, status: 200, json: async () => store.reports };
   }
 
-  // 5. Advances
+  // 5. Cash Advances Module
   if (endpoint.startsWith('/api/advances')) {
-    const parts = endpoint.split('/');
+    const parts = endpoint.split('?')[0].split('/');
     const advanceId = parts[3];
 
     if (method === 'PUT' && advanceId) {
       const adv = store.advances.find(a => a.id === advanceId);
       if (adv) {
-        if (body.settlementStatus) adv.settlementStatus = body.settlementStatus;
+        if (body && body.settlementStatus) adv.settlementStatus = body.settlementStatus;
         saveLocalStore(store);
         return { ok: true, status: 200, json: async () => ({ success: true, advance: adv }) };
       }
@@ -204,6 +237,7 @@ export async function safeFetch(endpoint, options = {}) {
       saveLocalStore(store);
       return { ok: true, status: 201, json: async () => ({ success: true, advance: newAdvance }) };
     }
+
     return { ok: true, status: 200, json: async () => store.advances };
   }
 
@@ -212,16 +246,28 @@ export async function safeFetch(endpoint, options = {}) {
     return { ok: true, status: 200, json: async () => store.settings };
   }
 
-  // 7. Actions (Approve trip)
+  // 7. Actions: Dashboard Approve Pending Trip Card
   if (endpoint.startsWith('/api/actions/approve-trip')) {
     const { approverId } = body || {};
-    const trip = store.pendingTrips.find(t => t.id === approverId);
-    if (trip && trip.count > 0) {
-      trip.count -= 1;
+    const approver = store.pendingTrips.find(t => t.id === approverId);
+    if (approver && approver.count > 0) {
+      approver.count -= 1;
       saveLocalStore(store);
-      return { ok: true, status: 200, json: async () => ({ success: true, message: `Approved 1 trip for ${trip.name}`, item: trip }) };
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          success: true,
+          message: `Approved 1 trip for ${approver.name}! Remaining: ${approver.count}`,
+          item: approver
+        })
+      };
     }
-    return { ok: true, status: 200, json: async () => ({ success: true, message: 'Approved' }) };
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ success: true, message: 'Trip approved successfully!' })
+    };
   }
 
   return { ok: true, status: 200, json: async () => ({ success: true }) };
