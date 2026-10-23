@@ -34,7 +34,7 @@ export async function safeFetch(endpoint, options = {}) {
   }
 
   // If running in development with an actual live Node.js backend on localhost
-  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+  if (typeof window !== 'undefined') {
     try {
       const res = await window.fetch(endpoint, options);
       const contentType = res.headers.get('content-type') || '';

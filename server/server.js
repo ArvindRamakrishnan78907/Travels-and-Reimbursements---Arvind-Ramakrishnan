@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5050;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/expense_tracker_db';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://arvindramakrishnan17:arvindramakrishnan17@cluster0.obysspe.mongodb.net/smartspend?retryWrites=true&w=majority';
 
 import { connectDB } from './config/db.js';
 import { User } from './models/User.js';
@@ -1054,7 +1054,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(clientDistPath, 'index.html'));
 });
 
-if (process.env.NETLIFY !== 'true' && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+if (process.env.NETLIFY !== 'true' && !process.env.AWS_LAMBDA_FUNCTION_NAME && !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
   });
