@@ -26,8 +26,20 @@ import { PurchaseRequest } from './models/PurchaseRequest.js';
 import { Setting } from './models/Setting.js';
 import { authenticateToken, requireRole, JWT_SECRET } from './middleware/auth.js';
 
+import rateLimit from 'express-rate-limit';
+import PDFDocument from 'pdfkit';
+import ExcelJS from 'exceljs';
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  message: { success: false, message: 'Too many authentication attempts, please try again in 15 minutes.' }
+});
+
 app.use(cors());
 app.use(express.json());
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
 
 // In-Memory Seed Data (Localized to Indian Rupees INR ₹ at 1 USD = 83 INR)
 const initialData = {
@@ -768,6 +780,52 @@ app.put('/api/trips/:id', (req, res) => {
 });
 
 // Reports Endpoints
+// Export Reports to Excel
+app.get('/api/reports/export/excel', async (req, res) => {
+  try {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Expense Reports');
+    worksheet.columns = [
+      { header: 'ID', key: 'id', width: 12 },
+      { header: 'Title', key: 'title', width: 28 },
+      { header: 'Employee', key: 'employee', width: 20 },
+      { header: 'Email', key: 'email', width: 25 },
+      { header: 'Date', key: 'submittedDate', width: 15 },
+      { header: 'Amount (INR)', key: 'amount', width: 16 },
+      { header: 'Policy Status', key: 'policyStatus', width: 16 },
+      { header: 'Status', key: 'status', width: 14 }
+    ];
+    currentStore.reports.forEach(r => worksheet.addRow(r));
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=Expense_Reports.xlsx');
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// Export Reports to PDF
+app.get('/api/reports/export/pdf', (req, res) => {
+  try {
+    const doc = new PDFDocument({ margin: 40 });
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=Expense_Audit_Summary.pdf');
+    doc.pipe(res);
+    doc.fontSize(18).text('SmartSpend Expense Audit Summary', { align: 'center' });
+    doc.moveDown();
+    doc.fontSize(10).text(Generated on: \);
+    doc.moveDown();
+    currentStore.reports.forEach(r => {
+      doc.fontSize(11).text([]  -  | Amount: INR  | Status:  | Policy: \);
+      doc.moveDown(0.4);
+    });
+    doc.end();
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 app.get('/api/reports', (req, res) => {
   const { viewMode } = req.query;
   if (viewMode === 'my') {
