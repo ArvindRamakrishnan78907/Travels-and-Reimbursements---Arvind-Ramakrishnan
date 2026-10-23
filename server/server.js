@@ -814,10 +814,10 @@ app.get('/api/reports/export/pdf', (req, res) => {
     doc.pipe(res);
     doc.fontSize(18).text('SmartSpend Expense Audit Summary', { align: 'center' });
     doc.moveDown();
-    doc.fontSize(10).text(Generated on: \);
+    doc.fontSize(10).text('Generated on: ' + new Date().toLocaleString());
     doc.moveDown();
     currentStore.reports.forEach(r => {
-      doc.fontSize(11).text([]  -  | Amount: INR  | Status:  | Policy: \);
+      doc.fontSize(11).text('[' + r.id + '] ' + r.title + ' - ' + r.employee + ' | Amount: INR ' + r.amount + ' | Status: ' + r.status.toUpperCase() + ' | Policy: ' + r.policyStatus);
       doc.moveDown(0.4);
     });
     doc.end();
