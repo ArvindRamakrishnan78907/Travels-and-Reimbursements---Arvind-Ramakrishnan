@@ -59,7 +59,7 @@ export async function safeFetch(endpoint, options = {}) {
       email: email || 'admin@zylker.com',
       role: 'admin',
       department: 'Management',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'
+      avatar: null
     };
     return {
       ok: true,
@@ -75,7 +75,7 @@ export async function safeFetch(endpoint, options = {}) {
       email: body.email,
       role: body.role || 'employee',
       department: body.department || 'General',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'
+      avatar: null
     };
     store.users.push(newUser);
     saveLocalStore(store);
@@ -141,7 +141,7 @@ export async function safeFetch(endpoint, options = {}) {
         purpose: body.purpose || 'Business Trip',
         traveler: body.traveler || 'Arvind Ramakrishnan',
         email: body.email || 'admin@zylker.com',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+        avatar: null,
         dates: body.dates || 'Upcoming',
         budget: Number(body.budget) || 10000,
         status: 'pending'
@@ -193,7 +193,7 @@ export async function safeFetch(endpoint, options = {}) {
         title: body.title,
         employee: body.employee || 'Arvind Ramakrishnan',
         email: body.email || 'admin@zylker.com',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+        avatar: null,
         submittedDate: new Date().toISOString().split('T')[0],
         receiptsCount: body.receiptsCount || 1,
         amount: Number(body.amount) || 1000,
@@ -227,7 +227,7 @@ export async function safeFetch(endpoint, options = {}) {
         id: 'ADV-' + Math.floor(100 + Math.random() * 900),
         employee: body.employee || 'Arvind Ramakrishnan',
         email: body.email || 'admin@zylker.com',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+        avatar: null,
         amount: Number(body.amount) || 5000,
         purpose: body.purpose || 'Travel Advance',
         issuedDate: new Date().toISOString().split('T')[0],

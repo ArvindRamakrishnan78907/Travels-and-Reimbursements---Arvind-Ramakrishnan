@@ -1,3 +1,4 @@
+import UserAvatar from '../UserAvatar';
 import { safeFetch as fetch } from '../../utils/safeFetch.js';
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, DollarSign, CheckCircle2, Download } from 'lucide-react';
@@ -209,7 +210,7 @@ export default function AdvancesView({ viewMode = 'admin', onNotification }) {
                   <td style={{ fontWeight: 600, color: 'var(--primary)' }}>{item.id}</td>
                   <td>
                     <div className="user-info-col">
-                      <img src={item.avatar} alt={item.employee} className="avatar-img" />
+                      <UserAvatar name={item.employee} size={30} />
                       <div className="user-text-meta">
                         <span className="user-name">{item.employee}</span>
                         <span className="user-email">{item.email}</span>

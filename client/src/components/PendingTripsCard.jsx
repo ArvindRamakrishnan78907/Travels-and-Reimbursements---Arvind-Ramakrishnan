@@ -1,3 +1,4 @@
+import UserAvatar from './UserAvatar';
 import React from 'react';
 import { Briefcase } from 'lucide-react';
 
@@ -22,14 +23,7 @@ export default function PendingTripsCard({ trips, onApproveTrip }) {
             trips.map((approver) => (
               <div key={approver.id} className="table-row">
                 <div className="user-info-col">
-                  <img
-                    src={approver.avatar}
-                    alt={approver.name}
-                    className="avatar-img"
-                    onError={(e) => {
-                      e.target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="%23e2e8f0"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="%23475569">${encodeURIComponent(approver.name ? approver.name.slice(0, 2).toUpperCase() : 'U')}</text></svg>`;
-                    }}
-                  />
+                  <UserAvatar name={approver.name} size={32} />
                   <div className="user-text-meta">
                     <span className="user-name">{approver.name}</span>
                     <span className="user-email">{approver.email}</span>

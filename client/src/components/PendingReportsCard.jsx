@@ -1,3 +1,4 @@
+import UserAvatar from './UserAvatar';
 import React, { useState } from 'react';
 import { FolderMinus } from 'lucide-react';
 import { formatINR } from '../utils/formatCurrency';
@@ -47,14 +48,7 @@ export default function PendingReportsCard({ reportsData }) {
             activeItems.map((item) => (
               <div key={item.id} className="table-row">
                 <div className="user-info-col">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="avatar-img"
-                    onError={(e) => {
-                      e.target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="%23e2e8f0"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="%23475569">${encodeURIComponent(item.name ? item.name.slice(0, 2).toUpperCase() : 'U')}</text></svg>`;
-                    }}
-                  />
+                  <UserAvatar name={item.name} size={32} />
                   <div className="user-text-meta">
                     <span className="user-name">{item.name}</span>
                     <span className="user-email">{item.email}</span>

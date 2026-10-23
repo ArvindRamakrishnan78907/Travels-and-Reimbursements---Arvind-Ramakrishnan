@@ -1,3 +1,4 @@
+import UserAvatar from '../UserAvatar';
 import { safeFetch as fetch } from '../../utils/safeFetch.js';
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Download, CheckCircle, Plane, Calendar, MapPin, DollarSign, ShieldCheck, Printer, X, FileText, Compass } from 'lucide-react';
@@ -275,7 +276,7 @@ export default function TripsView({ viewMode = 'admin', onNotification }) {
                   </td>
                   <td>
                     <div className="user-info-col">
-                      <img src={trip.avatar} alt={trip.traveler} className="avatar-img" />
+                      <UserAvatar name={trip.traveler} size={30} />
                       <div className="user-text-meta">
                         <span className="user-name">{trip.traveler}</span>
                         <span className="user-email">{trip.email}</span>
@@ -484,7 +485,7 @@ export default function TripsView({ viewMode = 'admin', onNotification }) {
               <div style={{ border: '1px solid #eef2f6', padding: '12px', borderRadius: '8px' }}>
                 <span style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: '#64748b', fontWeight: 700 }}>Traveler Profile</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: '8px' }}>
-                  <img src={selectedTrip.avatar} alt={selectedTrip.traveler} style={{ width: 34, height: 34, borderRadius: '50%' }} />
+                  <UserAvatar name={selectedTrip.traveler} size={34} />
                   <div>
                     <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1e293b' }}>{selectedTrip.traveler}</div>
                     <div style={{ fontSize: '0.76rem', color: '#64748b' }}>{selectedTrip.email}</div>

@@ -98,7 +98,7 @@ const initialData = {
       purpose: 'Global Partner Conference',
       traveler: 'Aditya Verma',
       email: 'aditya.v@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      avatar: null,
       dates: 'Oct 18 - Oct 23, 2026',
       budget: 236550.00,
       status: 'pending'
@@ -109,7 +109,7 @@ const initialData = {
       purpose: 'APAC Regional Client Summit',
       traveler: 'Arvind',
       email: 'arvind@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+      avatar: null,
       dates: 'Nov 02 - Nov 06, 2026',
       budget: 161850.00,
       status: 'approved'
@@ -120,7 +120,7 @@ const initialData = {
       purpose: 'Tech Architecture Summit',
       traveler: 'Karthik Kumar',
       email: 'karthik.kumar@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
+      avatar: null,
       dates: 'Sep 10 - Sep 15, 2026',
       budget: 282200.00,
       status: 'completed'
@@ -131,7 +131,7 @@ const initialData = {
       purpose: 'Vendor Negotiation',
       traveler: 'Manoj Raghavan',
       email: 'manoj.r@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop',
+      avatar: null,
       dates: 'Aug 24 - Aug 29, 2026',
       budget: 203350.00,
       status: 'approved'
@@ -142,21 +142,21 @@ const initialData = {
       id: "pt-1",
       name: "Arvind",
       email: "arvind@zylker.com",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces",
+      avatar: null,
       count: 1
     },
     {
       id: "pt-2",
       name: "Karthik Kumar",
       email: "karthik.kumar@zylker.com",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
+      avatar: null,
       count: 4
     },
     {
       id: "pt-3",
       name: "Anand Subramanian",
       email: "anand.s@zylker.com",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces",
+      avatar: null,
       count: 12
     }
   ],
@@ -166,7 +166,7 @@ const initialData = {
       title: 'Trip to Singapore Client Onboarding',
       employee: 'Arvind',
       email: 'arvind@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+      avatar: null,
       submittedDate: 'May 12, 2026',
       receiptsCount: 4,
       amount: 26735.00,
@@ -178,7 +178,7 @@ const initialData = {
       title: 'Quarterly Sales Executive Dinners',
       employee: 'Karthik Narayanan',
       email: 'karthik.n@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop',
+      avatar: null,
       submittedDate: 'May 14, 2026',
       receiptsCount: 8,
       amount: 102295.00,
@@ -190,7 +190,7 @@ const initialData = {
       title: 'Tokyo Hardware Expo Booth & Passes',
       employee: 'Manoj Raghavan',
       email: 'manoj.r@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop',
+      avatar: null,
       submittedDate: 'May 08, 2026',
       receiptsCount: 12,
       amount: 235728.00,
@@ -202,7 +202,7 @@ const initialData = {
       title: 'Design System Team Offsite Supplies',
       employee: 'Sneha Kulkarni',
       email: 'sneha.k@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop',
+      avatar: null,
       submittedDate: 'Apr 28, 2026',
       receiptsCount: 6,
       amount: 327900.00,
@@ -219,7 +219,7 @@ const initialData = {
           id: "rep-app-1",
           name: "Aditya Verma",
           email: "aditya.v@zylker.com",
-          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces",
+          avatar: null,
           amount: 153550.00,
           reportCode: "ER-12",
           tripName: "London Client Summit"
@@ -233,7 +233,7 @@ const initialData = {
           id: "rep-reimb-1",
           name: "Ananya",
           email: "ananya@zylker.com",
-          avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=faces",
+          avatar: null,
           amount: 26735.00,
           reportCode: "ER-04",
           tripName: "Design System Workshop"
@@ -242,7 +242,7 @@ const initialData = {
           id: "rep-reimb-2",
           name: "Karthik Narayanan",
           email: "karthik.n@zylker.com",
-          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=faces",
+          avatar: null,
           amount: 102295.00,
           reportCode: "ER-07",
           tripName: "Quarterly Sales Review"
@@ -251,7 +251,7 @@ const initialData = {
           id: "rep-reimb-3",
           name: "Manoj Raghavan",
           email: "manoj.r@zylker.com",
-          avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=faces",
+          avatar: null,
           amount: 235728.00,
           reportCode: "ER-08",
           tripName: "Tokyo Tech Expo"
@@ -260,7 +260,7 @@ const initialData = {
           id: "rep-reimb-4",
           name: "Sneha Kulkarni",
           email: "sneha.k@zylker.com",
-          avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces",
+          avatar: null,
           amount: 327900.00,
           reportCode: "ER-10",
           tripName: "European Partner Meet"
@@ -273,7 +273,7 @@ const initialData = {
       id: 'ADV-801',
       employee: 'Arvind',
       email: 'arvind@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+      avatar: null,
       amount: 24900.00,
       purpose: 'Advance for Singapore Trip Meals & Transit',
       issuedDate: 'May 12, 2026',
@@ -283,7 +283,7 @@ const initialData = {
       id: 'ADV-798',
       employee: 'Karthik Kumar',
       email: 'karthik.kumar@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
+      avatar: null,
       amount: 124500.00,
       purpose: 'San Francisco Tech Conference Booking',
       issuedDate: 'May 04, 2026',
@@ -293,7 +293,7 @@ const initialData = {
       id: 'ADV-795',
       employee: 'Anand Subramanian',
       email: 'anand.s@zylker.com',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop',
+      avatar: null,
       amount: 37350.00,
       purpose: 'Client Hospitality & Dinner',
       issuedDate: 'Apr 26, 2026',
@@ -307,7 +307,7 @@ const initialData = {
       vendor: 'Amazon Web Services',
       department: 'Engineering',
       requester: 'Karthik Narayanan',
-      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop',
+      avatar: null,
       amount: 8400.00,
       status: 'pending'
     },
@@ -317,7 +317,7 @@ const initialData = {
       vendor: 'Figma Inc.',
       department: 'Product Design',
       requester: 'Arvind',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+      avatar: null,
       amount: 2160.00,
       status: 'approved'
     },
@@ -327,7 +327,7 @@ const initialData = {
       vendor: 'Herman Miller',
       department: 'Operations',
       requester: 'Anand Subramanian',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop',
+      avatar: null,
       amount: 5890.00,
       status: 'approved'
     }
@@ -408,7 +408,7 @@ const initialData = {
       password: '$2b$10$YixjanWpIeO4Lm5Hk.3EaOqalcIXTgcF5138qktWZyMgTsGFgkR6O', // admin123
       role: 'admin',
       department: 'Finance & Administration',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'
+      avatar: null
     },
     {
       id: 'USR-002',
@@ -417,7 +417,7 @@ const initialData = {
       password: '$2b$10$DrNaXwEVaSPLsqGmpK6iouLwJdzY5w2WPEzuXu.wq6uTw152pzlLa', // manager123
       role: 'manager',
       department: 'Engineering & Operations',
-      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop'
+      avatar: null
     },
     {
       id: 'USR-003',
@@ -426,7 +426,7 @@ const initialData = {
       password: '$2b$10$VmCBROlveHzjiSsoU4DiretEMrtuG4/i4ampgb0x8r2L2r3kZJcte', // employee123
       role: 'employee',
       department: 'Global Sales',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop'
+      avatar: null
     }
   ]
 };
@@ -759,7 +759,7 @@ app.post('/api/trips', (req, res) => {
     purpose: purpose || 'Business Engagement',
     traveler,
     email: email || `${traveler.toLowerCase().replace(/\s+/g, '.')}@zylker.com`,
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+    avatar: null,
     dates: dates || 'Nov 15 - Nov 20, 2026',
     budget: parseFloat(budget) || 1500.00,
     status: 'pending'
@@ -845,7 +845,7 @@ app.post('/api/reports', (req, res) => {
     title,
     employee: employee || 'Arvind',
     email: email || 'arvind@zylker.com',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+    avatar: null,
     submittedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
     receiptsCount: parseInt(receiptsCount) || 1,
     amount: parseFloat(amount),
@@ -886,7 +886,7 @@ app.post('/api/advances', (req, res) => {
     id: `ADV-${802 + currentStore.advances.length}`,
     employee,
     email: email || `${employee.toLowerCase().replace(/\s+/g, '.')}@zylker.com`,
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+    avatar: null,
     amount: parseFloat(amount),
     purpose: purpose || 'Travel and Client Hospitality Advance',
     issuedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
@@ -928,7 +928,7 @@ app.post('/api/purchaserequests', (req, res) => {
     vendor: vendor || 'Corporate Vendor',
     department: department || 'General',
     requester: requester || 'Arvind',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop',
+    avatar: null,
     amount: parseFloat(amount),
     status: 'pending'
   };

@@ -1,3 +1,4 @@
+import UserAvatar from './UserAvatar';
 import React from 'react';
 import { UserCheck, Shield, LogIn, LogOut, KeyRound } from 'lucide-react';
 
@@ -62,11 +63,7 @@ export default function TopHeader({
                 borderRadius: '30px'
               }}
             >
-              <img 
-                src={currentUser.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'} 
-                alt={currentUser.name} 
-                style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
-              />
+              <UserAvatar name={currentUser.name} size={28} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1e293b', lineHeight: 1.2 }}>
                   {currentUser.name}

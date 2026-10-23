@@ -1,3 +1,4 @@
+import UserAvatar from '../UserAvatar';
 import { safeFetch as fetch } from '../../utils/safeFetch.js';
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, CheckCircle, XCircle, Download } from 'lucide-react';
@@ -179,7 +180,7 @@ export default function PurchaseRequestsView({ viewMode = 'admin', onNotificatio
                 </td>
                 <td>
                   <div className="user-info-col">
-                    <img src={p.avatar} alt={p.requester} className="avatar-img" />
+                    <UserAvatar name={p.requester} size={30} />
                     <span className="user-name">{p.requester}</span>
                   </div>
                 </td>

@@ -124,19 +124,19 @@ export const mockStore = {
       "id": "1",
       "name": "Arvind Ramakrishnan",
       "count": 2,
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
+      "avatar": null
     },
     {
       "id": "2",
       "name": "Karthik Raja",
       "count": 1,
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+      "avatar": null
     },
     {
       "id": "3",
       "name": "Aditya Varma",
       "count": 1,
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+      "avatar": null
     }
   ],
   "pendingReports": {
@@ -179,7 +179,7 @@ export const mockStore = {
       "purpose": "Client Architecture Review",
       "traveler": "Arvind Ramakrishnan",
       "email": "admin@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+      "avatar": null,
       "dates": "Oct 24 - Oct 28, 2026",
       "budget": 42000,
       "status": "approved"
@@ -190,7 +190,7 @@ export const mockStore = {
       "purpose": "FinTech Leadership Summit",
       "traveler": "Karthik Raja",
       "email": "karthik@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      "avatar": null,
       "dates": "Nov 02 - Nov 05, 2026",
       "budget": 35000,
       "status": "pending"
@@ -201,7 +201,7 @@ export const mockStore = {
       "purpose": "Cloud Infrastructure Audit",
       "traveler": "Aditya Varma",
       "email": "aditya@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
+      "avatar": null,
       "dates": "Nov 12 - Nov 15, 2026",
       "budget": 28000,
       "status": "pending"
@@ -212,7 +212,7 @@ export const mockStore = {
       "purpose": "Annual Vendor Negotiations",
       "traveler": "Arvind Ramakrishnan",
       "email": "admin@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+      "avatar": null,
       "dates": "Dec 01 - Dec 06, 2026",
       "budget": 65000,
       "status": "pending"
@@ -224,7 +224,7 @@ export const mockStore = {
       "title": "Bengaluru Q3 Client Flight & Hotel",
       "employee": "Arvind Ramakrishnan",
       "email": "admin@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+      "avatar": null,
       "submittedDate": "2026-10-18",
       "receiptsCount": 4,
       "amount": 38500,
@@ -236,7 +236,7 @@ export const mockStore = {
       "title": "Mumbai FinTech Expo Travel Advance Settlement",
       "employee": "Karthik Raja",
       "email": "karthik@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      "avatar": null,
       "submittedDate": "2026-10-19",
       "receiptsCount": 2,
       "amount": 24000,
@@ -248,7 +248,7 @@ export const mockStore = {
       "title": "Hyderabad Data Center Emergency Cab Fare",
       "employee": "Aditya Varma",
       "email": "aditya@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
+      "avatar": null,
       "submittedDate": "2026-10-21",
       "receiptsCount": 6,
       "amount": 8750,
@@ -260,7 +260,7 @@ export const mockStore = {
       "title": "Team Strategy Dinner - Chennai HQ",
       "employee": "Arvind Ramakrishnan",
       "email": "admin@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+      "avatar": null,
       "submittedDate": "2026-10-22",
       "receiptsCount": 1,
       "amount": 14500,
@@ -273,7 +273,7 @@ export const mockStore = {
       "id": "ADV-401",
       "employee": "Arvind Ramakrishnan",
       "email": "admin@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+      "avatar": null,
       "amount": 50000,
       "purpose": "Q4 Client Roadshow Travel Advance",
       "issuedDate": "2026-10-10",
@@ -283,7 +283,7 @@ export const mockStore = {
       "id": "ADV-402",
       "employee": "Karthik Raja",
       "email": "karthik@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      "avatar": null,
       "amount": 35000,
       "purpose": "FinTech Expo Booth Logistics",
       "issuedDate": "2026-10-12",
@@ -293,7 +293,7 @@ export const mockStore = {
       "id": "ADV-403",
       "employee": "Aditya Varma",
       "email": "aditya@zylker.com",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
+      "avatar": null,
       "amount": 80000,
       "purpose": "Regional Server Deployment Advance",
       "issuedDate": "2026-10-15",
@@ -307,7 +307,7 @@ export const mockStore = {
       "email": "admin@zylker.com",
       "role": "admin",
       "department": "Executive Management",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
+      "avatar": null
     },
     {
       "id": "u2",
@@ -315,7 +315,7 @@ export const mockStore = {
       "email": "karthik@zylker.com",
       "role": "manager",
       "department": "Engineering & Operations",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+      "avatar": null
     },
     {
       "id": "u3",
@@ -323,7 +323,7 @@ export const mockStore = {
       "email": "aditya@zylker.com",
       "role": "employee",
       "department": "Product Development",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+      "avatar": null
     }
   ]
 };
