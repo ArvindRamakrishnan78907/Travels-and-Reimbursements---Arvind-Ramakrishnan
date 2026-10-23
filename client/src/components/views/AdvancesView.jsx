@@ -1,3 +1,4 @@
+import { safeFetch as fetch } from '../../utils/safeFetch.js';
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, DollarSign, CheckCircle2, Download } from 'lucide-react';
 import { exportToCSV } from '../../utils/exportUtils';

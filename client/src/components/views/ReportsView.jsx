@@ -1,3 +1,4 @@
+import { safeFetch as fetch } from '../../utils/safeFetch.js';
 import React, { useState, useEffect } from 'react';
 import { 
   Plus, 

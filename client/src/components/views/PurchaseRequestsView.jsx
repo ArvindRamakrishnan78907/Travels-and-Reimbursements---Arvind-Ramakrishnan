@@ -1,3 +1,4 @@
+import { safeFetch as fetch } from '../../utils/safeFetch.js';
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, CheckCircle, XCircle, Download } from 'lucide-react';
 import { exportToCSV } from '../../utils/exportUtils';
