@@ -339,7 +339,7 @@ export default function ReportsView({ viewMode = 'admin', onNotification }) {
                     </div>
                   </td>
                   <td style={{ color: '#64748b', fontSize: '0.84rem' }}>{item.submittedDate}</td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <button
                       type="button"
                       onClick={() => setViewingOcrDoc(item)}
@@ -347,17 +347,23 @@ export default function ReportsView({ viewMode = 'admin', onNotification }) {
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 4,
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        background: '#f1f5f9',
+                        gap: 6,
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        background: '#f8fafc',
                         border: '1px solid #cbd5e1',
-                        fontSize: '0.76rem',
+                        fontSize: '0.78rem',
+                        fontWeight: 500,
                         cursor: 'pointer',
-                        color: '#334155'
+                        color: '#1e293b',
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+                        transition: 'all 0.15s ease'
                       }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = '#e2e8f0'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = '#f8fafc'; }}
                     >
-                      <Eye size={12} color="#2563eb" />
+                      <Eye size={13} color="#2563eb" />
                       <span>{item.receiptsCount} Bill(s)</span>
                     </button>
                   </td>
