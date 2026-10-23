@@ -19,7 +19,7 @@ export async function safeFetch(endpoint, options = {}) {
   const body = options.body ? JSON.parse(options.body) : null;
   const token = localStorage.getItem('smartspend_token');
 
-  // Try real backend API first if running locally or on custom server
+  // Try real backend API first if running locally with custom server
   try {
     const res = await fetch(endpoint, options);
     const contentType = res.headers.get('content-type') || '';
@@ -28,10 +28,10 @@ export async function safeFetch(endpoint, options = {}) {
       return { ok: true, status: res.status, json: async () => data };
     }
   } catch (netErr) {
-    // Network error: Fall through to embedded data engine
+    // Network fallback
   }
 
-  // --- Embedded Client-Side Data Engine (for GitHub Pages / Static Hosting) ---
+  // --- Embedded Client-Side Data Engine (Static & GitHub Pages) ---
   const store = getLocalStore();
 
   // 1. Authentication
@@ -39,17 +39,16 @@ export async function safeFetch(endpoint, options = {}) {
     const { email } = body || {};
     const user = store.users.find(u => u.email.toLowerCase() === (email || '').toLowerCase()) || {
       id: 'custom-' + Date.now(),
-      name: email.split('@')[0],
-      email: email,
+      name: (email || 'Arvind').split('@')[0],
+      email: email || 'admin@zylker.com',
       role: 'admin',
       department: 'Management',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'
     };
-    const mockToken = 'mock-jwt-token-' + Date.now();
     return {
       ok: true,
       status: 200,
-      json: async () => ({ success: true, token: mockToken, user, message: `Welcome back, ${user.name}!` })
+      json: async () => ({ success: true, token: 'mock-jwt-' + Date.now(), user, message: `Welcome back, ${user.name}!` })
     };
   }
 
@@ -92,6 +91,19 @@ export async function safeFetch(endpoint, options = {}) {
   }
 
   if (endpoint.startsWith('/api/trips')) {
+    const parts = endpoint.split('/');
+    const tripId = parts[3];
+
+    // PUT: Update trip status (e.g. approve trip)
+    if (method === 'PUT' && tripId) {
+      const trip = store.trips.find(t => t.id === tripId);
+      if (trip) {
+        if (body.status) trip.status = body.status;
+        saveLocalStore(store);
+        return { ok: true, status: 200, json: async () => ({ success: true, message: `Trip ${tripId} status updated to ${body.status}!`, trip }) };
+      }
+    }
+
     if (method === 'POST') {
       const newTrip = {
         id: 'TRP-' + Math.floor(100 + Math.random() * 900),
@@ -111,12 +123,38 @@ export async function safeFetch(endpoint, options = {}) {
     return { ok: true, status: 200, json: async () => store.trips };
   }
 
-  // 4. Reports
+  // 4. Reports (Including Reimburse action)
   if (endpoint.startsWith('/api/reports/pending')) {
     return { ok: true, status: 200, json: async () => store.pendingReports };
   }
 
   if (endpoint.startsWith('/api/reports')) {
+    const parts = endpoint.split('/');
+    const reportId = parts[3];
+
+    // PUT: Update report status (e.g. mark as reimbursed or in-review)
+    if (method === 'PUT' && reportId) {
+      const report = store.reports.find(r => r.id === reportId);
+      if (report) {
+        if (body.status) report.status = body.status;
+        saveLocalStore(store);
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            success: true,
+            message: `Report ${reportId} marked as ${body.status}!`,
+            report
+          })
+        };
+      }
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ success: true, message: `Report ${reportId} updated!` })
+      };
+    }
+
     if (method === 'POST') {
       const newReport = {
         id: 'EXP-' + Math.floor(1000 + Math.random() * 9000),
@@ -139,6 +177,18 @@ export async function safeFetch(endpoint, options = {}) {
 
   // 5. Advances
   if (endpoint.startsWith('/api/advances')) {
+    const parts = endpoint.split('/');
+    const advanceId = parts[3];
+
+    if (method === 'PUT' && advanceId) {
+      const adv = store.advances.find(a => a.id === advanceId);
+      if (adv) {
+        if (body.settlementStatus) adv.settlementStatus = body.settlementStatus;
+        saveLocalStore(store);
+        return { ok: true, status: 200, json: async () => ({ success: true, advance: adv }) };
+      }
+    }
+
     if (method === 'POST') {
       const newAdvance = {
         id: 'ADV-' + Math.floor(100 + Math.random() * 900),

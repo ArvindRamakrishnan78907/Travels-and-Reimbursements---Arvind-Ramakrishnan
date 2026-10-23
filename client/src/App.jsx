@@ -14,6 +14,7 @@ import ReportsView from './components/views/ReportsView';
 import AdvancesView from './components/views/AdvancesView';
 
 import { CheckCircle2 } from 'lucide-react';
+import VerdictRow from './components/VerdictRow';
 
 const navTitles = {
   dashboard: 'Executive Dashboard',
@@ -157,6 +158,7 @@ export default function App() {
       default:
         return (
           <div className="dashboard-grid">
+            <VerdictRow summary={dashboardData?.overallSummary} totalSpend={dashboardData?.totalSpend} />
             {/* Row 1: Spend Summary & Overall Summary */}
             <div className="grid-row-top">
               <SpendSummaryCard

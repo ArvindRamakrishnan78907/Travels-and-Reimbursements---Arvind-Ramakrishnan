@@ -1147,3 +1147,130 @@ button {
   border-color: var(--primary);
   background: #ffffff;
 }
+
+/* Fintech Data Polish & Tabular Alignment */
+.tabular-num, .col-amount {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  text-align: right;
+  font-weight: 600;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* Status Badges with Subtle Glowing Dot */
+.badge-pill::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.badge-pill.approved::before, .badge-pill.settled::before, .badge-pill.active::before {
+  background-color: #10b981;
+  box-shadow: 0 0 5px rgba(16, 185, 129, 0.4);
+}
+
+.badge-pill.pending::before, .badge-pill.in-review::before {
+  background-color: #f59e0b;
+  box-shadow: 0 0 5px rgba(245, 158, 11, 0.4);
+}
+
+.badge-pill.completed::before, .badge-pill.reimbursed::before {
+  background-color: #2563eb;
+  box-shadow: 0 0 5px rgba(37, 99, 235, 0.4);
+}
+
+.badge-pill.rejected::before, .badge-pill.overdue::before, .badge-pill.flagged::before {
+  background-color: #ef4444;
+  box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+}
+
+/* Hover Quick Actions in Table Rows */
+.modern-table tr {
+  position: relative;
+  transition: background-color 0.15s ease;
+}
+
+.row-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.modern-table tr:hover .row-quick-actions {
+  opacity: 1;
+}
+
+/* Verdict Metrics Row */
+.verdict-row-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.verdict-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.verdict-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.verdict-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.verdict-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.verdict-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdict-sub {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.verdict-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
